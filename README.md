@@ -1022,7 +1022,6 @@ wukongbot-go/
 │   │   └── feishu.go
 │   ├── config/           # Configuration
 │   ├── cron/             # Cron service
-│   ├── heartbeat/        # Heartbeat service
 │   ├── providers/        # LLM providers
 │   │   ├── factory.go
 │   │   ├── openai.go
