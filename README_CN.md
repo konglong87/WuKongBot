@@ -163,7 +163,7 @@ providers:
 channels:
   telegram:
     enabled: true
-    token: "123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"
+    token: "123456789:xxxxxxx"
     allow_from: []  # 空列表表示允许所有人
 
   whatsapp:
