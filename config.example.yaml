@@ -1,0 +1,153 @@
+# wukongbot 配置示例文件
+# 复制此文件为 config.yaml 并根据你的需求修改配置
+
+agents:
+  defaults:
+    workspace: "~/wukongbot-workspace"
+    model: "gpt-4o"
+    max_tokens: 4096
+    temperature: 0.7
+    max_tool_iterations: 10
+    max_history_messages: 10     # 最大历史消息数量 (0 = 不保存历史)
+    use_history_messages: true   # 是否使用历史消息 (false = 实时数据查询模式)
+    history_timeout_seconds: 600 # 历史消息超时秒数 (0 = 无限制)
+    error_response: "大模型出错了！"  # 当大模型返回空内容时的默认错误消息（可配置）
+
+# 身份配置（可选）
+# 如果不配置，将使用默认的 wukongbot 身份
+identity:
+  name: "wukongbot"           # 代理名称
+  title: "a helpful AI assistant"  # 代理描述
+  prompt: ""                 # 能力描述（留空使用默认）
+  tools: ""                  # 工具列表（留空使用默认）
+  behavior: ""               # 行为准则（留空使用默认）
+  soul: "古灵精怪，幽默风趣"  # 机器人的性格（留空则不添加，如：古灵精怪、踏实稳妥、活泼开朗乐观向上）
+
+providers:
+  openai:
+    api_key: "your-api-key"  # 替换为你的 API Key
+    api_base: "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
+
+  qwen:
+    api_key: "your-api-key"  # 替换为你的通义千问 API Key
+    api_base: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+    model: "qwen-vl-max"  # 可选: qwen-vl-max, qwen-vl-plus, qwen-vl
+
+# 数据库配置
+# type: sqlite 或 mysql
+database:
+  type: "sqlite"  # 使用 SQLite（默认）
+  # path: SQLite 数据库文件路径（仅在使用 SQLite 时需要）
+  path: ""  # 留空则使用默认路径 ~/wukongbot-workspace/wukongbot.db
+
+  # MySQL 配置（仅在使用 MySQL 时需要）
+  # host: "localhost"
+  # port: 3306
+  # database: "wukongbot"
+  # username: "root"
+  # password: "your-password"
+
+channels:
+  telegram:
+    enabled: false
+    token: "your-bot-token"
+    allow_from: []
+
+  whatsapp:
+    enabled: false
+    bridge_url: "ws://localhost:3001"
+    allow_from: []
+
+  feishu:
+    enabled: false
+    app_id: "cli_xxx"
+    app_secret: "xxx"
+    encrypt_key: ""  # 可选，用于加密验证
+    verification_token: "xxx"
+    connection_mode: "websocket"  # "websocket" (默认，推荐) 或 "webhook" (需要公网IP)
+    allow_from: []
+
+tools:
+  web:
+    search:
+      provider: "brave"  # "brave" or "duckduckgo" (default: brave)
+      api_key: ""
+      max_results: 5
+  exec:
+    timeout: 60
+    restrict_to_workspace: true
+  image:
+    generation:
+      api_key: ""  # 留空则使用 providers.qwen.api_key
+      api_base: ""  # 留空则从 models 中根据 model 自动选择
+      model: "qwen-image-max"  # 默认模型
+      models:
+        # 通义千问图像生成模型
+        qwen-image-max: "https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation"
+        qwen-image-plus: "https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation"
+    analysis:
+      api_key: ""  # 留空则使用 providers.qwen.api_key
+      api_base: "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
+      model: "qwen-vl-max"  # 可选: qwen-vl-max, qwen-vl-plus, qwen-vl
+
+  code_dev:
+    enabled: false       # 是否启用代码开发工具
+    timeout: 300         # 命令执行超时时间（秒），默认5分钟
+    executors:
+      cursor:
+        enabled: false              # 启用 cursor 工具
+        command: "cursor"
+        template: "cursor ai \"{task}\""  # 命令模板
+
+  hooks:
+    enabled: false      # 是否启用 hooks 系统（全局开关）
+    timeout: 10         # hooks 执行超时时间（秒）
+
+    # PreToolUse hooks - 在工具执行前触发
+    pre_tool_use:
+      - name: "dangerous-command-check"
+        matcher: "exec"         # 匹配工具名称（支持正则）
+        type: "inline"          # inline 或 command
+        # inline hooks 需要在代码中注册
+
+    # PostToolUse hooks - 在工具执行成功后触发
+    post_tool_use:
+      - name: "log-write"
+        matcher: "write_file"
+        type: "command"
+        command: "echo 'File written: {tool_input.path}' >> ~/.wukongbot-hooks.log"
+
+# Swagger/OpenAPI 配置
+swagger:
+  max_endpoints: 50       # 每个 API 源的最大端点数
+  default_limit: 1000     # 分页默认大小
+  default_offset: 0       # 分页默认偏移
+  include_tags: []        # 只包含这些标签的端点
+  exclude_tags: []        # 排除这些标签的端点
+  sources:
+    - id: example-api
+      name: Example API
+      url: https://api.example.com/swagger.json
+      base_url: https://api.example.com
+      enabled: true
+      refresh_interval: 1h
+      auth:
+        type: x-token        # bearer, basic, apikey, x-token
+        token: ""            # 初始 token
+
+# Tmux 会话管理配置
+tmux:
+  enabled: true                          # 是否启用 tmux 会话管理
+  socket_dir: "/tmp/wukongbot-tmux-sockets"  # Socket 文件目录（可选，默认在临时目录）
+  default_interval: 2                    # 监控间隔（秒）
+  max_sessions: 5                        # 每个用户最大会话数
+  output_lines: 200                      # 捕获输出的行数
+  wait_ms: 500                          # 捕获前等待时间（毫秒）
+  session_timeout: 1800                  # 会话超时（秒）
+  auto_restart: false                    # 是否自动重启崩溃的会话
+  max_restarts: 3                        # 最大重启次数
+
+gateway:
+  enabled: true
+  host: "0.0.0.0"
+  port: 12345

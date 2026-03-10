@@ -1,0 +1,30 @@
+.assets
+.env
+dist/
+build/
+*-arm64
+config.yaml
+*.log
+/logs
+.worktrees/
+
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# 备份文件
+*.backup
+*.bak
+*.bak2
+
+# 临时文件
+*.tmp
+*.swp
+*~
+
+# IDE 配置
+.idea/
+.vscode/
+*.iml
