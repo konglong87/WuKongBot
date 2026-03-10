@@ -2,6 +2,11 @@
 
 轻量级 AI 助手框架，使用 Go 语言编写。支持多渠道（Telegram、WhatsApp、飞书）和多种 LLM 提供商。
 
+[![CI](https://github.com/konglong87/wukongbot/actions/workflows/ci.yml/badge.svg)](https://github.com/konglong87/wukongbot/actions/workflows/ci.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/konglong87/wukongbot)](https://goreportcard.com/report/github.com/konglong87/wukongbot)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+
 > **中文文档**: [README_CN.md](README_CN.md) | **English Documentation**: [README.md](README.md)
 
 ## 功能特性

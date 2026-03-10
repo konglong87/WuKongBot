@@ -1,5 +1,9 @@
 # wukongbot-go
 
+[![CI](https://github.com/konglong87/wukongbot/actions/workflows/ci.yml/badge.svg)](https://github.com/konglong87/wukongbot/actions/workflows/ci.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/konglong87/wukongbot)](https://goreportcard.com/report/github.com/konglong87/wukongbot)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 A lightweight AI assistant framework written in Go, ported from the Python version. Supports multiple channels (Telegram, WhatsApp, Feishu) and multiple LLM providers.
 
 > **中文文档**: [README_CN.md](README_CN.md) | **English Documentation**: [README.md](README.md)
