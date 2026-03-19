@@ -1118,4 +1118,12 @@ MIT License
 2. Create your feature branch
 3. Commit your changes
 4. Push to the branch
+
+## TODO
+
+- [ ] Implement browser operation support
+- [ ] Self-improvement and bug fixing capabilities
+- [ ] Self-upgrade and hot reload support
+- [ ] Session compression
+- [ ] Smart skills management
 5. Create a Pull Request
