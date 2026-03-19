@@ -25,8 +25,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 定时任务支持
 - 会话管理
 - 数据库支持（SQLite/MySQL）
-- 子代理（Subagent）
-- Skills 钩子（onSessionStart、onEnd、onMsg）
 
 ### Changed
 - 配置文件结构优化

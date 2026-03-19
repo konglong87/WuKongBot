@@ -1116,4 +1116,6 @@ MIT License
 - [ ] 自我升级热更新
 - [ ] 会话压缩
 - [ ] Skills智能管理
+- [ ] 子代理（Subagent）
+- [ ] Skills 钩子（onSessionStart、onEnd、onMsg）
 5. 创建 Pull Request

@@ -1126,4 +1126,6 @@ MIT License
 - [ ] Self-upgrade and hot reload support
 - [ ] Session compression
 - [ ] Smart skills management
+- [ ] Subagent
+- [ ] Skills hooks (onSessionStart, onEnd, onMsg)
 5. Create a Pull Request
